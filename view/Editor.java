@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.FocusAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -286,15 +287,21 @@ public class Editor extends JFrame
         txtEditor = new JTextArea();
         txtEditor.setMinimumSize(new Dimension(750, 480));        
         txtEditor.setBorder(borderEditor);
-        txtEditor.setEnabled(false);        
-        txtEditor.addKeyListener(new KeyAdapter() 
-        {		
+        txtEditor.setEnabled(false); 
+        txtEditor.addKeyListener(new KeyListener()
+		{
+        	@Override
+			public void keyTyped(KeyEvent e){ }
+			
 			@Override
-			public void keyPressed(KeyEvent e) 
+			public void keyReleased(KeyEvent e) { }
+			
+			@Override
+			public void keyPressed(KeyEvent e)
 			{
 				if (e.getKeyCode() == KeyEvent.VK_N && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
 				{
-					btnNovo.doClick();
+					btnNovo.doClick();					
 				}
 				else if (e.getKeyCode() == KeyEvent.VK_O && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
 				{
@@ -331,6 +338,57 @@ public class Editor extends JFrame
 				}
 			}
 		});
+        this.addKeyListener(new KeyListener()
+		{
+			@Override
+			public void keyTyped(KeyEvent e){ }
+			
+			@Override
+			public void keyReleased(KeyEvent e) { }
+			
+			@Override
+			public void keyPressed(KeyEvent e)
+			{
+				if (e.getKeyCode() == KeyEvent.VK_N && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
+				{
+					btnNovo.doClick();					
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_O && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
+				{
+					btnAbrir.doClick();
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_S && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
+				{
+					btnSalvar.doClick();
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_C && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
+				{
+					btnCopiar.doClick();
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_V && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
+				{
+					//Isso foi suprimido para evitar que o texto fosse colado duas vezes.
+					btnColar.doClick();
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_X && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
+				{
+					btnRecortar.doClick();
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_F8)
+				{
+					btnCompilar.doClick();
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_F9)
+				{
+					btnGerarCodigo.doClick();
+				}
+				else if (e.getKeyCode() == KeyEvent.VK_F1)
+				{
+					btnEquipe.doClick();
+				}
+			}
+		});
+        
         txtEditor.getDocument().addDocumentListener(new DocumentListener()
 		{			
 			@Override
@@ -448,8 +506,11 @@ public class Editor extends JFrame
     {
         try 
         {
-            salvaArquivo();
-            statusBar.setStatus(pastaArquivo, nomeArquivo, Status.NAO_MODIFICADO);
+        	if (status != null)
+        	{        	
+        		salvaArquivo();
+            	statusBar.setStatus(pastaArquivo, nomeArquivo, Status.NAO_MODIFICADO);
+        	}
         }
         catch (IOException ex) 
         {
