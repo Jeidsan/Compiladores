@@ -310,7 +310,8 @@ public class Editor extends JFrame
 				}
 				else if (e.getKeyCode() == KeyEvent.VK_V && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
 				{
-					btnColar.doClick();
+					//Isso foi suprimido para evitar que o texto fosse colado duas vezes.
+					//btnColar.doClick();
 				}
 				else if (e.getKeyCode() == KeyEvent.VK_X && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0))
 				{
