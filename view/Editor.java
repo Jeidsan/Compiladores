@@ -32,6 +32,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import analisadores.lexico.LexicalError;
+import analisadores.lexico.Lexico;
+import analisadores.lexico.ScannerConstants;
+import analisadores.lexico.Token;
+
 import javax.swing.JPanel;
 
 import componentes.NumberedBorder;
@@ -540,13 +546,33 @@ public class Editor extends JFrame
     private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) 
     {
     	limparMensagens();
-        adicionarMensagem("Compilação de programas ainda não foi implementada");
+    	
+    	Lexico lexico = new Lexico(txtEditor.getText());    	
+    	    	   
+    	try
+    	{
+    		Token t = null;
+    		
+    		adicionarMensagem("Linha \tClasse \t\tLexema");
+    	    while ( (t = lexico.nextToken()) != null )
+    	    {
+    	        adicionarMensagem(t.getLine() + "\t" + t.getClasse() + "\t" + t.getLexeme());
+    	    }
+    	    adicionarMensagem("\r\nPrograma compilado com sucesso.");    	    
+    	}
+    	catch(LexicalError e)
+    	{
+    		limparMensagens();
+    		adicionarMensagem(e.toString());
+    	}
+    	
+        //adicionarMensagem("Compilação de programas ainda não foi implementada");
     }
     
     /* Ação do botão GERAR CÓDIGO */
     private void btnGerarCodigoActionPerformed(java.awt.event.ActionEvent evt) 
     {
-    	limparMensagens();
+    	limparMensagens();    
     	adicionarMensagem("Geração de código ainda não foi implementada");
     }
     
@@ -575,7 +601,7 @@ public class Editor extends JFrame
     /* Adiciona uma nova mensagem na área de mensagens */    
     private void adicionarMensagem(String mensagem)
     {
-    	txtMensagens.append("\r\n" + mensagem);
+    	txtMensagens.append(mensagem + "\r\n");
     }
     
     /* Salva o conteúdo do editor num arquivo */

@@ -1,0 +1,90 @@
+#Options
+GenerateScanner = true
+GenerateParser = false
+Language = Java
+ScannerName = Lexico
+Package = analisadores.lexico
+ScannerCaseSensitive = false
+ScannerTable = Compact
+Input = String
+#RegularDefinitions
+letra: [a-zA-Z]
+digito: [0-9]
+acentuadas: á | Á | â | Â | ã | Ã | à | À | é | É | ê | Ê | í | Í | ô | Ô | õ | Õ | ó | Ó | ú | Ú | û | Û | ç | Ç
+underline: _
+dig_nao_nulo: [1-9]
+inteira: 0 | {dig_nao_nulo} {digito}*
+fracionaria: \. {digito}+
+string: ([^\"\\\n] | \\\" | \\\\)*
+ini_bloco: / \*
+fim_bloco: (\*)+ /
+inter_bloco: [^\*/]
+exc_bloco_1:(\*)+[^/]
+exc_bloco_2:(/)+[^\*]
+cont_bloco:{inter_bloco} | {exc_bloco_1} | {exc_bloco_2}
+ini_linha: / /
+texto_linha: [^\n\t]
+#Tokens
+//tokens genéricos
+identificador: ({letra} | {acentuadas})_? (({letra} | {digito} | {acentuadas})_?)*
+contante_inteira: {inteira}
+constante_real: {inteira}{fracionaria}
+constante_caracter: \"{string}\"
+//comentario_bloco: {ini_bloco}({cont_bloco})*{fim_bloco}
+//comentario_linha: {ini_linha}{texto_linha}*
+
+//tokens específicos: palavras reservadas
+algoritmo = identificador: "algoritmo"
+ate = identificador: "até"
+caracter = identificador: "caracter"
+e = identificador: "e"
+enquanto = identificador: "enquanto"
+entao = identificador: "então"
+escreva = identificador: "escreva"
+faca = identificador: "faça"
+falso = identificador: "falso"
+fim = identificador: "fim"
+funcao = identificador: "função"
+inicio = identificador: "início"
+inteiro = identificador: "inteiro"
+interrompa = identificador: "interrompa"
+leia = identificador: "leia"
+logico = identificador: "lógico"
+nao = identificador: "não"
+ou = identificador: "ou"
+procedimento = identificador: "procedimento"
+quebra = identificador: "quebra"
+real = identificador: "real"
+repita = identificador: "repita"
+retorne = identificador: "retorne"
+se = identificador: "se"
+senao = identificador: "senão"
+variaveis = identificador: "variáveis"
+verdadeiro = identificador: "verdadeiro"
+	
+//tokens específicos: símbolos especiais
+
+"+"
+"-"
+"*"
+"/"
+"\"
+"%"
+"^"
+","
+":"
+";"
+"<-"
+"="
+"<>"
+"<"
+"<="
+">"
+">="
+"("
+")"
+
+//ignorar: caracteres de formatação 
+:[\s\t\n]
+:!{ini_bloco}({cont_bloco})*{fim_bloco}
+:!{ini_linha}{texto_linha}*
