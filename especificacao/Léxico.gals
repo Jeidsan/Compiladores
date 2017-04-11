@@ -6,7 +6,7 @@ ScannerName = Lexico
 Package = analisadores.lexico
 ScannerCaseSensitive = false
 ScannerTable = Compact
-Input = String
+Input = Stream
 #RegularDefinitions
 letra: [a-zA-Z]
 digito: [0-9]
@@ -24,14 +24,14 @@ exc_bloco_2:(/)+[^\*]
 cont_bloco:{inter_bloco} | {exc_bloco_1} | {exc_bloco_2}
 ini_linha: / /
 texto_linha: [^\n\t]
+comentario_bloco: {ini_bloco}({cont_bloco})*{fim_bloco}
+comentario_linha: {ini_linha}{texto_linha}*
 #Tokens
 //tokens genéricos
 identificador: ({letra} | {acentuadas})_? (({letra} | {digito} | {acentuadas})_?)*
 contante_inteira: {inteira}
 constante_real: {inteira}{fracionaria}
 constante_caracter: \"{string}\"
-//comentario_bloco: {ini_bloco}({cont_bloco})*{fim_bloco}
-//comentario_linha: {ini_linha}{texto_linha}*
 
 //tokens específicos: palavras reservadas
 algoritmo = identificador: "algoritmo"
@@ -86,5 +86,5 @@ verdadeiro = identificador: "verdadeiro"
 
 //ignorar: caracteres de formatação 
 :[\s\t\n]
-:!{ini_bloco}({cont_bloco})*{fim_bloco}
-:!{ini_linha}{texto_linha}*
+:!{comentario_bloco}
+:!{comentario_linha}

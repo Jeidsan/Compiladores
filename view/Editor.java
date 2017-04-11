@@ -558,7 +558,7 @@ public class Editor extends JFrame
     	    {
     	        adicionarMensagem(t.getLine() + "\t" + t.getClasse() + "\t" + t.getLexeme());
     	    }
-    	    adicionarMensagem("\r\nPrograma compilado com sucesso.");    	    
+    	    adicionarMensagem("\r\nPrograma compilado com sucesso.");
     	}
     	catch(LexicalError e)
     	{
