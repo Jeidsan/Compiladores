@@ -636,20 +636,23 @@ public class Editor extends JFrame
     		salvarArquivoEscolhido = new File(caminhoArquivo);
     	}
     	
-        FileWriter writer = new FileWriter(salvarArquivoEscolhido);
-        writer.write(txtEditor.getText());
-        writer.flush();
-        writer.close();
+    	if (caminhoArquivo != null)
+    	{
+    		FileWriter writer = new FileWriter(salvarArquivoEscolhido);
+    		writer.write(txtEditor.getText());
+    		writer.flush();
+    		writer.close();
         
-        caminhoArquivo = salvarArquivoEscolhido.getAbsolutePath();
-        nomeArquivo = salvarArquivoEscolhido.getName();
-        pastaArquivo = caminhoArquivo.replaceAll(nomeArquivo, "");
-        status = Status.NAO_MODIFICADO;
+    		caminhoArquivo = salvarArquivoEscolhido.getAbsolutePath();
+    		nomeArquivo = salvarArquivoEscolhido.getName();
+    		pastaArquivo = caminhoArquivo.replaceAll(nomeArquivo, "");
+    		status = Status.NAO_MODIFICADO;
         
-        limparMensagens();
-        statusBar.setStatus(pastaArquivo, nomeArquivo, status);
+    		limparMensagens();
+    		statusBar.setStatus(pastaArquivo, nomeArquivo, status);
         
-        JOptionPane.showMessageDialog(this, "O arquivo " + nomeArquivo + " foi salvo com sucesso.");
+    		JOptionPane.showMessageDialog(this, "O arquivo " + nomeArquivo + " foi salvo com sucesso.");
+    	}
     }
 
     /* Abre um arquivo e carrega seu conteúdo no editor */
