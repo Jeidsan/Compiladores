@@ -1,0 +1,189 @@
+<programa> ::= algoritmo constante_caracter <cabecalho_modulos> <variaveis_aux> inicio <lista_comandos> fim <lista_modulos>;
+<cabecalho_modulos> ::= <cabecalho> <cabecalho_modulos> | î ;
+<variaveis_aux> ::= <variaveis> | î ;
+<lista_comandos> ::= <comando> ";" <lista_comandos> | î ;
+<comando> ::= <comando_atribuicao> | <comando_entrada> | <comando_saida> | <comando_selecao> | <comando_repeticao> | <interrompa> | <retorne> | <chamada_modulo>;
+<lista_modulos> ::= <modulo> <lista_modulos> | î;
+<modulo> ::= <funcao> | <procedimento>;
+<cabecalho> ::= <cabecalho_funcao> | <cabecalho_procedimento> ;
+<cabecalho_funcao> ::= funcao identificador "(" <lista_parametros> ")" ":" <tipo> ";";
+<cabecalho_procedimento> ::= procedimento identificador "(" <lista_parametros> ")" ";";
+<lista_parametros> ::= <lista_parametros_aux> | î;
+<lista_parametros_aux> ::= <parametro> | <parametro> ";" <lista_parametro_aux>;
+<parametro> ::= <lista_identificadores> ":" <tipo>;
+<lista_identificadores> ::= identificador | identificador "," <lista_identificadores>;
+<tipo> ::= caracter | logico | inteiro | real;
+<comando_saida> ::= escreva "(" <lista_valores> ")";
+<lista_valores> ::= <valor> | <valor> "," <lista_valores>;
+<valor> ::= <expressao> | quebra;
+<comando_entrada> ::= leia "(" <lista_identificadores> ")";
+<comando_atribuicao> ::= identificador "<-" <expressao>;
+<variaveis> ::= variaveis <lista_identificadores> ":" <tipo> ";" <outras>;
+<outras> ::= <lista_identificadores> ":" <tipo> ";" <outras> | î ;
+<comando_selecao> ::= se <expressao> entao <lista_comandos> <senao> fim ;
+<senao> ::= senao <lista_comandos> | î;
+<comando_repeticao> ::= repita <lista_comandos> ate <expressao>;
+<interrompa> ::= interrompa;
+<retorne> ::= retorne <expressao>;
+<chamada_modulo> ::= identificador "(" <parametros_reais> ")";
+<parametros_reais> ::= <lista_expressoes> | î;
+<lista_expressoes> ::= <expressao> | <expressao> "," <lista_expressoes>;
+<funcao> ::= funcao identificador "(" <lista_parametros> ")" ":" <tipo> ";" <variaveis_aux> inicio <lista_comandos> fim;
+<procedimento> ::= procedimento identificador "(" <lista_parametros> ")" ";" <variaveis_aux> inicio <lista_comandos> fim;
+<expressao> ::= <elemento> <expressao_1>;
+<expressao_1> ::= e <elemento> <expressao_1> | ou <elemento> <expressao_1> | î; 
+<elemento> ::= <relacional> | verdadeiro | falso | nao <elemento> ;
+<relacional> ::= <aritmetica> <operador_relacional> <aritmetica> | <aritmetica>;
+<operador_relacional> ::= "=" | "<>" | "<" | "<=" | ">" | ">=";
+<aritmetica> ::= <termo> <aritmetica_1>;
+<aritmetica_1> ::= "+" <termo> <aritmetica_1> | "-" <termo> <aritmetica_1> | î;
+<termo> ::= <fator> <termo_1>;
+<termo_1> ::= "*" <fator> <termo_1> | "/" <fator> <termo_1> | î;
+<fator> ::= identificador | identificador "(" <parametros_reais> ")" | contante_inteira | constante_real | constante_caracter | "(" <expressao> ")" | "+" <fator> | "-" <fator> ;
+
+//1ª Etapa
+
+//1º Passo
+<lista_parametros_aux> ::= <parametro> | <parametro> ";" <lista_parametro_aux>;
+<lista_identificadores> ::= identificador | identificador "," <lista_identificadores>;
+<lista_valores> ::= <valor> | <valor> "," <lista_valores>;
+<lista_expressoes> ::= <expressao> | <expressao> "," <lista_expressoes>;
+<relacional> ::= <aritmetica> <operador_relacional> <aritmetica> | <aritmetica>;
+<fator> ::= identificador | identificador "(" <parametros_reais> ")" | contante_inteira | constante_real | constante_caracter | "(" <expressao> ")" | "+" <fator> | "-" <fator> ;
+
+
+//2º Passo
+<lista_parametros_aux_1> ::= î | ";" <lista_parametro_aux>;
+<lista_parametros_aux> ::= <parametro> <lista_parametros_aux_1> ;
+
+<lista_identificadores_1> ::= î | "," <lista_identificadores>;
+<lista_identificadores> ::= identificador <lista_identificadores_1>;
+
+<lista_valores_1> ::= î | "," <lista_valores> ;
+<lista_valores> ::= <valor> <lista_valores_1>;
+
+<lista_expressoes_1> ::= î | "," <lista_expressoes>;
+<lista_expressoes> ::= <expressao><lista_expressoes_1>;
+
+<relacional_1> ::= <operador_relacional> <aritmetica> | î ;
+<relacional> ::= <aritmetica> <relacional_1>;
+
+<fator_1> ::= î | "(" <parametros_reais> ")";
+<fator> ::= identificador <fator_1> | contante_inteira | constante_real | constante_caracter | "(" <expressao> ")" | "+" <fator> | "-" <fator> ;
+
+
+
+//3º Passo
+<programa> ::= algoritmo constante_caracter <cabecalho_modulos> <variaveis_aux> inicio <lista_comandos> fim <lista_modulos>;
+<cabecalho_modulos> ::= <cabecalho> <cabecalho_modulos> | î ;
+<variaveis_aux> ::= <variaveis> | î ;
+<lista_comandos> ::= <comando> ";" <lista_comandos> | î ;
+<comando> ::= <comando_atribuicao> | <comando_entrada> | <comando_saida> | <comando_selecao> | <comando_repeticao> | <interrompa> | <retorne> | <chamada_modulo>;
+<lista_modulos> ::= <modulo> <lista_modulos> | î;
+<modulo> ::= <funcao> | <procedimento>;
+<cabecalho> ::= <cabecalho_funcao> | <cabecalho_procedimento> ;
+<cabecalho_funcao> ::= funcao identificador "(" <lista_parametros> ")" ":" <tipo> ";";
+<cabecalho_procedimento> ::= procedimento identificador "(" <lista_parametros> ")" ";";
+<lista_parametros> ::= <lista_parametros_aux> | î;
+<lista_parametros_aux_1> ::= î | ";" <lista_parametro_aux>;
+<lista_parametros_aux> ::= <parametro> <lista_parametros_aux_1> ;
+<parametro> ::= <lista_identificadores> ":" <tipo>;
+<lista_identificadores_1> ::= î | "," <lista_identificadores>;
+<lista_identificadores> ::= identificador <lista_identificadores_1>;
+<tipo> ::= caracter | logico | inteiro | real;
+<comando_saida> ::= escreva "(" <lista_valores> ")";
+<lista_valores_1> ::= î | "," <lista_valores> ;
+<lista_valores> ::= <valor> <lista_valores_1>;
+<valor> ::= <expressao> | quebra;
+<comando_entrada> ::= leia "(" <lista_identificadores> ")";
+<comando_atribuicao> ::= identificador "<-" <expressao>;
+<variaveis> ::= variaveis <lista_identificadores> ":" <tipo> ";" <outras>;
+<outras> ::= <lista_identificadores> ":" <tipo> ";" <outras> | î ;
+<comando_selecao> ::= se <expressao> entao <lista_comandos> <senao> fim ;
+<senao> ::= senao <lista_comandos> | î;
+<comando_repeticao> ::= repita <lista_comandos> ate <expressao>;
+<interrompa> ::= interrompa;
+<retorne> ::= retorne <expressao>;
+<chamada_modulo> ::= identificador "(" <parametros_reais> ")";
+<parametros_reais> ::= <lista_expressoes> | î;
+<lista_expressoes_1> ::= î | "," <lista_expressoes>;
+<lista_expressoes> ::= <expressao><lista_expressoes_1>;
+<funcao> ::= funcao identificador "(" <lista_parametros> ")" ":" <tipo> ";" <variaveis_aux> inicio <lista_comandos> fim;
+<procedimento> ::= procedimento identificador "(" <lista_parametros> ")" ";" <variaveis_aux> inicio <lista_comandos> fim;
+<expressao> ::= <elemento> <expressao_1>;
+<expressao_1> ::= e <elemento> <expressao_1> | ou <elemento> <expressao_1> | î; 
+<elemento> ::= <relacional> | verdadeiro | falso | nao <elemento> ;
+<relacional_1> ::= <operador_relacional> <aritmetica> | î ;
+<relacional> ::= <aritmetica> <relacional_1>;
+<operador_relacional> ::= "=" | "<>" | "<" | "<=" | ">" | ">=";
+<aritmetica> ::= <termo> <aritmetica_1>;
+<aritmetica_1> ::= "+" <termo> <aritmetica_1> | "-" <termo> <aritmetica_1> | î;
+<termo> ::= <fator> <termo_1>;
+<termo_1> ::= "*" <fator> <termo_1> | "/" <fator> <termo_1> | î;
+<fator_1> ::= î | "(" <parametros_reais> ")";
+<fator> ::= identificador <fator_1> | contante_inteira | constante_real | constante_caracter | "(" <expressao> ")" | "+" <fator> | "-" <fator> ;
+
+
+
+
+//2ª Etapa
+
+//1º Passo
+<comando> ::= <comando_atribuicao> | <comando_entrada> | <comando_saida> | <comando_selecao> | <comando_repeticao> | <interrompa> | <retorne> | <chamada_modulo>;
+<comando_atribuicao> ::= identificador "<-" <expressao>;
+<chamada_modulo> ::= identificador "(" <parametros_reais> ")";
+
+//2º Passo
+<comando_1> ::= "<-" <expressao> | "(" <parametros_reais> ")";
+<comando> ::= identificador <comando_1> | <comando_entrada> | <comando_saida> | <comando_selecao> | <comando_repeticao> | <interrompa> | <retorne>;
+
+//3º Passo
+<programa> ::= algoritmo constante_caracter <cabecalho_modulos> <variaveis_aux> inicio <lista_comandos> fim <lista_modulos>;
+<cabecalho_modulos> ::= <cabecalho> <cabecalho_modulos> | î ;
+<variaveis_aux> ::= <variaveis> | î ;
+<lista_comandos> ::= <comando> ";" <lista_comandos> | î ;
+<comando_1> ::= "<-" <expressao> | "(" <parametros_reais> ")";
+<comando> ::= identificador <comando_1> | <comando_entrada> | <comando_saida> | <comando_selecao> | <comando_repeticao> | <interrompa> | <retorne>;
+<lista_modulos> ::= <modulo> <lista_modulos> | î;
+<modulo> ::= <funcao> | <procedimento>;
+<cabecalho> ::= <cabecalho_funcao> | <cabecalho_procedimento> ;
+<cabecalho_funcao> ::= funcao identificador "(" <lista_parametros> ")" ":" <tipo> ";";
+<cabecalho_procedimento> ::= procedimento identificador "(" <lista_parametros> ")" ";";
+<lista_parametros> ::= <lista_parametros_aux> | î;
+<lista_parametros_aux_1> ::= î | ";" <lista_parametro_aux>;
+<lista_parametros_aux> ::= <parametro> <lista_parametros_aux_1> ;
+<parametro> ::= <lista_identificadores> ":" <tipo>;
+<lista_identificadores_1> ::= î | "," <lista_identificadores>;
+<lista_identificadores> ::= identificador <lista_identificadores_1>;
+<tipo> ::= caracter | logico | inteiro | real;
+<comando_saida> ::= escreva "(" <lista_valores> ")";
+<lista_valores_1> ::= î | "," <lista_valores> ;
+<lista_valores> ::= <valor> <lista_valores_1>;
+<valor> ::= <expressao> | quebra;
+<comando_entrada> ::= leia "(" <lista_identificadores> ")";
+<comando_atribuicao> ::= identificador "<-" <expressao>;
+<variaveis> ::= variaveis <lista_identificadores> ":" <tipo> ";" <outras>;
+<outras> ::= <lista_identificadores> ":" <tipo> ";" <outras> | î ;
+<comando_selecao> ::= se <expressao> entao <lista_comandos> <senao> fim ;
+<senao> ::= senao <lista_comandos> | î;
+<comando_repeticao> ::= repita <lista_comandos> ate <expressao>;
+<interrompa> ::= interrompa;
+<retorne> ::= retorne <expressao>;
+<chamada_modulo> ::= identificador "(" <parametros_reais> ")";
+<parametros_reais> ::= <lista_expressoes> | î;
+<lista_expressoes_1> ::= î | "," <lista_expressoes>;
+<lista_expressoes> ::= <expressao><lista_expressoes_1>;
+<funcao> ::= funcao identificador "(" <lista_parametros> ")" ":" <tipo> ";" <variaveis_aux> inicio <lista_comandos> fim;
+<procedimento> ::= procedimento identificador "(" <lista_parametros> ")" ";" <variaveis_aux> inicio <lista_comandos> fim;
+<expressao> ::= <elemento> <expressao_1>;
+<expressao_1> ::= e <elemento> <expressao_1> | ou <elemento> <expressao_1> | î; 
+<elemento> ::= <relacional> | verdadeiro | falso | nao <elemento> ;
+<relacional_1> ::= <operador_relacional> <aritmetica> | î ;
+<relacional> ::= <aritmetica> <relacional_1>;
+<operador_relacional> ::= "=" | "<>" | "<" | "<=" | ">" | ">=";
+<aritmetica> ::= <termo> <aritmetica_1>;
+<aritmetica_1> ::= "+" <termo> <aritmetica_1> | "-" <termo> <aritmetica_1>;
+<termo> ::= <fator> <termo_1>;
+<termo_1> ::= "*" <fator> <termo_1> | "/" <fator> <termo_1>;
+<fator_1> ::= î | "(" <parametros_reais> ")";
+<fator> ::= identificador <fator_1> | contante_inteira | constante_real | constante_caracter | "(" <expressao> ")" | "+" <fator> | "-" <fator> ;

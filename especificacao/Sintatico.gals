@@ -32,8 +32,8 @@ identificador: ({letra} | {acentuadas})_? (({letra} | {digito} | {acentuadas})_?
 contante_inteira: {inteira}
 constante_real: {inteira}{fracionaria}
 constante_caracter: \"{string}\"
-comentario_bloco:! {ini_bloco}({cont_bloco})*{fim_bloco}
-comentario_linha:! {ini_linha}{texto_linha}*
+:! {ini_bloco}({cont_bloco})*{fim_bloco}
+:! {ini_linha}{texto_linha}*
 
 //tokens específicos: palavras reservadas
 algoritmo = identificador: "algoritmo"

@@ -33,10 +33,14 @@ import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import analisadores.lexico.LexicalError;
-import analisadores.lexico.Lexico;
-import analisadores.lexico.ScannerConstants;
-import analisadores.lexico.Token;
+import analisadores.LexicalError;
+import analisadores.Lexico;
+import analisadores.ScannerConstants;
+import analisadores.SemanticError;
+import analisadores.Semantico;
+import analisadores.Sintatico;
+import analisadores.SyntaticError;
+import analisadores.Token;
 
 import javax.swing.JPanel;
 
@@ -547,7 +551,34 @@ public class Editor extends JFrame
     {
     	limparMensagens();
     	
+    	Lexico lexico = new Lexico(txtEditor.getText());
+    	Sintatico sintatico = new Sintatico();
+    	Semantico semantico = new Semantico();       
+
+    	try
+    	{
+    	    sintatico.parse(lexico, semantico);
+    	    adicionarMensagem("Programa compilado com sucesso.");
+    	}
+    	catch ( LexicalError e )
+    	{
+    		limparMensagens();
+    		adicionarMensagem(e.toString());
+    	}
+    	catch ( SyntaticError e )
+    	{
+    		limparMensagens();
+    		adicionarMensagem(e.toString());
+    	}
+    	catch ( SemanticError e )
+    	{
+    		limparMensagens();
+    		adicionarMensagem(e.toString());
+    	}
+    	
+    	/*
     	Lexico lexico = new Lexico(txtEditor.getText());    	
+    	
     	    	   
     	try
     	{
@@ -565,6 +596,7 @@ public class Editor extends JFrame
     		limparMensagens();
     		adicionarMensagem(e.toString());
     	}
+    	*/
     	
         //adicionarMensagem("Compilação de programas ainda não foi implementada");
     }
